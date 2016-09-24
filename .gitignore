@@ -1,0 +1,4 @@
+AWSCognito.framework
+AWSCore.framework
+AWSDynamoDB.framework
+AWSAPIGateway.framework

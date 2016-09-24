@@ -26,6 +26,7 @@ Beginning with Google Form, the submitted form by administrators are pushed to a
 
 REQUIREMENTS
 ============
+- AWS frameworks from AWS iOS SDK: AWSAPIGateway.framework, AWSCognito.framework, AWSCore.framework, AWSDynamoDB.framework
 - AWS Cognito credentials with specific region and identityPoolId, currently using IAM Cognito_Unauth_Role with AmazonDynamoDBFullAccesswithDataPipeline
 - Pipeline between Google Form, Google Spreadsheet, and AWS
 
