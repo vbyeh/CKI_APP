@@ -41,7 +41,6 @@ class CollectionViewController: UICollectionViewController {
     
     override func viewDidLoad()
     {
-        print("ok")
         super.viewDidLoad()
         
         //temporary hard codes of month and date

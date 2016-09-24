@@ -37,7 +37,6 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("HOK")
         self.view.backgroundColor = UIColor(netHex:passedEventColor)
         eventTimeString = passedEventTime + " - " + passedEventEndTime
         eventName.text = passedEventName

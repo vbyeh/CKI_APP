@@ -21,7 +21,7 @@ class Welcome: UIViewController {
     
         let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         let queryExpression = AWSDynamoDBScanExpression()
-        queryExpression.limit = 100;
+        queryExpression.limit = 50;
         dynamoDBObjectMapper.scan(Item.self, expression: queryExpression).continueWithBlock({ (task:AWSTask!) -> AnyObject! in
             
             if task.result != nil {
@@ -60,7 +60,9 @@ class Welcome: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "welcome"){
-            let collection:CollectionViewController = segue.destinationViewController as! CollectionViewController
+            let destinationNavigationController = segue.destinationViewController as! UINavigationController
+            let collection:CollectionViewController = destinationNavigationController.topViewController as! CollectionViewController
+            
             collection.Name = self.Name
             collection.Month = self.Month
             collection.Date = self.Date
