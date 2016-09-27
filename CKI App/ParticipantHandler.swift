@@ -9,14 +9,13 @@ class ParticipantHandler: UICollectionViewController{    //when it doesn't confo
     var selectedName = 0
     var selectedPerson = String()
     var backgroundColor = Int()
+    var EventParticipants = [String]()
     //var eventYear:String!
     
     override func viewDidLoad() {
-        //temporary hard codes of month and date
-        //Month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-        Name = ["Bob Yeh", "Bobby Yeh", "Vincent Yeh"]
         super.viewDidLoad()
         self.collectionView?.backgroundColor = UIColor(netHex:backgroundColor)
+        print(EventParticipants)
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -26,7 +25,7 @@ class ParticipantHandler: UICollectionViewController{    //when it doesn't confo
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Name.count
+        return EventParticipants.count
     }
     
     //fill in each collection cell with values
@@ -35,7 +34,7 @@ class ParticipantHandler: UICollectionViewController{    //when it doesn't confo
         let participant = collectionView.dequeueReusableCellWithReuseIdentifier("participant", forIndexPath: indexPath) as UICollectionViewCell
         
         let name = participant.viewWithTag(1) as! UILabel
-        name.text = Name[indexPath.row]
+        name.text = EventParticipants[indexPath.row]
         
         let checkIn = participant.viewWithTag(2) as! UIButton
         

@@ -12,6 +12,7 @@ class Welcome: UIViewController {
     var End_Time = [String]()
     var Type = [Int]()
     var Description = [String]()
+    var Participants = [[String:[String:String]]]()
     override func viewDidLoad() {
         /*
         let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeUp:")
@@ -39,6 +40,7 @@ class Welcome: UIViewController {
                     self.End_Time.append(item.End_Time)
                     self.Type.append(item.Type)
                     self.Description.append(item.Description)
+                    self.Participants.append(item.Participants)
                 }
                 if ((task.error) != nil) {
                     print("Error: \(task.error)")
@@ -71,7 +73,7 @@ class Welcome: UIViewController {
             collection.EndTime = self.End_Time
             collection.Type = self.Type
             collection.Description = self.Description
-            //collection.Location = self.Location
+            collection.Participants = self.Participants
             
         }
     }

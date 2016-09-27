@@ -31,6 +31,7 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
     var passedEventEndTime = String()
     var passedEventColor = Int()
     var passedEventDescription = String()
+    var passedEventParticipants:[String:[String:String]] = [:]
     var timeBool = Bool()
     var eventTimeString = String()
     var timeString = String()
@@ -86,6 +87,10 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
             let Participant:ParticipantHandler = segue.destinationViewController as! ParticipantHandler
             Participant.timeHasPassed = timeBool
             Participant.backgroundColor = passedEventColor
+            
+            for (name, _) in passedEventParticipants{
+                Participant.EventParticipants.append(name)
+            }
         }
     }
     

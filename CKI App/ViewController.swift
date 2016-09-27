@@ -35,6 +35,7 @@ class CollectionViewController: UICollectionViewController {
     var Time = [String]()
     var EndTime = [String]()
     var Description = [String]()
+    var Participants = [[String:[String:String]]]()
     var serviceColor = 0xb2daff     //lightblue type 1
     var leadershipColor = 0xcbffed    //lightgreen type 0
     var fellowshipColor = 0xeaeaff    //lightpurple type -1
@@ -119,6 +120,7 @@ class CollectionViewController: UICollectionViewController {
             Event.passedEventTime = Time[indexPath.row]
             Event.passedEventEndTime = EndTime[indexPath.row]
             Event.passedEventDescription = Description[indexPath.row]
+            Event.passedEventParticipants = Participants[indexPath.row]
             switch Type[indexPath.row]{
             case 1:
                 Event.passedEventColor = serviceColor

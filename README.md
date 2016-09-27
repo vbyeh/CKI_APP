@@ -5,15 +5,19 @@ INTRODUCTION
 This 'currently' prototyped application is meant to simplify event transparancy with UC Davis Circle K International Club and its club members. It allows members to sign up, check in, and access club information through mobile. An iOS calendar app where administrators can create events on Google Form and will reflect onto iOS application. Members can then sign up or check in to these events with their personal data collected for club growth analysis. 
 
 Event List:
+
 ![alt tag](https://github.com/vbyeh/CKI_APP/blob/master/CKI%20ScreenShots/EventList.png)
 
 Event Info:
+
 ![alt tag](https://github.com/vbyeh/CKI_APP/blob/master/CKI%20ScreenShots/EventInfo.png)
 
 Settings:
+
 ![alt tag](https://github.com/vbyeh/CKI_APP/blob/master/CKI%20ScreenShots/Settings.png)
 
 Check In/Check Out:
+
 ![alt tag](https://github.com/vbyeh/CKI_APP/blob/master/CKI%20ScreenShots/CheckIO.png)
 
 User Guide

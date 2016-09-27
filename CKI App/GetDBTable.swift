@@ -18,6 +18,7 @@ class Item : AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         var End_Time:String = ""
         var Type:Int=0
         var Description:String=""
+        var Participants:[String:[String:String]] = [:]
     
         class func dynamoDBTableName() -> String {
             return "Event"
