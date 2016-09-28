@@ -2,6 +2,7 @@ import UIKit
 import AWSDynamoDB
 import Foundation
 
+//Loading screen that loads DynamoDB data onto iOS device
 class Welcome: UIViewController {
     var Name = [String]()
     var Month = [String]()
@@ -14,24 +15,18 @@ class Welcome: UIViewController {
     var Description = [String]()
     var Participants = [[String:[String:String]]]()
     override func viewDidLoad() {
-        /*
-        let recognizer: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "swipeUp:")
-        recognizer.direction = .Up
-        self.view .addGestureRecognizer(recognizer)
-         */
-    
         let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         let queryExpression = AWSDynamoDBScanExpression()
-        queryExpression.limit = 50;
+        queryExpression.limit = 50; //limit number of events to 50
         dynamoDBObjectMapper.scan(Item.self, expression: queryExpression).continueWithBlock({ (task:AWSTask!) -> AnyObject! in
             
             if task.result != nil {
                 let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
                 
                 for item in paginatedOutput.items as! [Item] {
-                    //NSLog(item.M!.stringValue)
+                    //iterate through each item in event and append to designated array
                     self.Name.append(item.Name)
-                    var dateArray = item.Date.componentsSeparatedByString("/")
+                    var dateArray = item.Date.componentsSeparatedByString("/")  //split date into month, date, and year
                     self.Month.append(dateArray[0])
                     self.Date.append(dateArray[1])
                     self.Year.append(dateArray[2])
@@ -53,6 +48,7 @@ class Welcome: UIViewController {
         })
 
         super.viewDidLoad()
+        //Loading screen for 3 seconds to load necessary data, then segue
         _ = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: #selector(finishLoading), userInfo: nil, repeats: false)
     }
     
@@ -61,6 +57,7 @@ class Welcome: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //on segue, pass parameters
         if (segue.identifier == "welcome"){
             let destinationNavigationController = segue.destinationViewController as! UINavigationController
             let collection:CollectionViewController = destinationNavigationController.topViewController as! CollectionViewController
@@ -77,6 +74,12 @@ class Welcome: UIViewController {
             
         }
     }
+    
+    /*
+     func loadSettings(){
+        //load settings from user configuration
+     }
+    */
     
     func finishLoading() {
         self.performSegueWithIdentifier("welcome", sender: self)

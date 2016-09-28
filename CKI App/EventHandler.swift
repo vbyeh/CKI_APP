@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import MapKit
 
+//Date formatting
 extension NSDate
 {
     convenience
@@ -15,7 +16,6 @@ extension NSDate
 }
 
 class EventHandler: UIViewController{    //when it doesn't conform to protocol it is because some functions need to be implemented
-    //let screenSize: CGRect = UIScreen.mainScreen().bounds
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var participantButton: UIButton!
     @IBOutlet weak var eventDescription: UITextView!
@@ -43,6 +43,8 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
         eventName.text = passedEventName
         eventTime.text = eventTimeString
         timeString = passedEventYear + "-" + passedEventMonth + "-" + passedEventDate + "T" + passedEventTime
+        
+        //Determines if current time is later than desginated time, if it is, user is checking in, otherwise, user is signning up
          if (timeCompare(timeString) == true){
          submitButton.setTitle("Sign Up", forState: .Normal)
          timeBool = false
@@ -88,16 +90,16 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
             Participant.timeHasPassed = timeBool
             Participant.backgroundColor = passedEventColor
             
+            //iterate through user names for display when participant is pressed
             for (name, _) in passedEventParticipants{
                 Participant.EventParticipants.append(name)
             }
         }
     }
     
+    //Comparison function to determine if current time is earlier or later than event time
     func timeCompare(stringDate: String)->Bool{
         let currentDate: NSDate = NSDate()
-        //let eventDate: NSDate = NSDate(dateString:"2016-03-23T23:06")
-        //print(stringDate)
         let eventDate: NSDate = NSDate(dateString:stringDate)
         if (currentDate == currentDate.earlierDate(eventDate)){
             return true

@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 
+//Routing function that emails feedback to club executives
 class FeedbackHandler: UIViewController{    //when it doesn't conform to protocol it is because some functions need to be implemented
     @IBOutlet weak var feedbackLabel: UILabel!
     @IBOutlet weak var feedbackTextView: UITextView!

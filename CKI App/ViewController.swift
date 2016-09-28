@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 
+//Colors in RBG hex
 extension UIColor {
     convenience init(red: Int, green: Int, blue: Int) {
         assert(red >= 0 && red <= 255, "Invalid red component of Hex color")
@@ -44,7 +45,7 @@ class CollectionViewController: UICollectionViewController {
     {
         super.viewDidLoad()
         
-        //temporary hard codes of month and date
+        //convert integer month into strings
         monthName = ["JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEP", "OCT", "NOV", "DEC"]
         
         self.collectionView?.backgroundColor = UIColor(netHex:0xFFFFFF)
@@ -66,7 +67,7 @@ class CollectionViewController: UICollectionViewController {
     
     //fill in each collection cell with values
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        //Replace below with data
+        //load each cell with passed in data from loading screen
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as UICollectionViewCell
         
         let month = cell.viewWithTag(1) as! UILabel

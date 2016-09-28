@@ -73,15 +73,18 @@ class ParticipantHandler: UICollectionViewController{    //when it doesn't confo
         }
     }
     
+    //Check if user is currently checked in, other wise check out
     func userCheckedIn(name: UILabel!, button: UIButton!){
         name.font = UIFont.boldSystemFontOfSize(16)
         name.textColor = UIColor .blueColor()
+        //Write current time to dynamoDB checkout
         button.setTitle("Check Out", forState: .Normal)
     }
     
     func userCheckedOut(name: UILabel!, button: UIButton){
         name.font = UIFont.boldSystemFontOfSize(16)
         name.textColor = UIColor .grayColor()
+        //Write current time to dynamoDB checkout
         button.hidden = true
     }
 }

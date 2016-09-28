@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 
+//User configurations on what they see
 class SettingsHandler: UITableViewController{    //when it doesn't conform to protocol it is because some
     var Settings: [String] = ["About", "Notification Configuration", "Feedback"]
     override func viewDidLoad() {

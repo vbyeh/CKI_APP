@@ -14,6 +14,7 @@ import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    //AWS Cognito initialization for using AWS iOS SDK
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         let credentialsProvider = AWSCognitoCredentialsProvider(

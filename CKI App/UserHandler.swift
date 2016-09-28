@@ -24,7 +24,6 @@ class UserHandler: UIViewController{    //when it doesn't conform to protocol it
         eventName.text = userEventName
         if (timePassed == false){
             submitButton.setTitle("Sign Up", forState: .Normal)
-            submitButton.addTarget(self, action: "buttonTapped:", forControlEvents: .TouchUpInside)
         }else{
             submitButton.setTitle("Check In", forState: .Normal)
             userEmail.hidden = true
@@ -35,8 +34,8 @@ class UserHandler: UIViewController{    //when it doesn't conform to protocol it
             phoneTextfield.hidden = true
             canDriveSwitch.hidden = true
             needRideSwitch.hidden = true
-            submitButton.addTarget(self, action: "buttonTapped:", forControlEvents: .TouchUpInside)
         }
+        submitButton.addTarget(self, action: "buttonTapped:", forControlEvents: .TouchUpInside)
         submitButton.layer.cornerRadius = 5
         submitButton.layer.borderWidth = 1
         submitButton.layer.borderColor = UIColor.blackColor().CGColor
@@ -46,6 +45,7 @@ class UserHandler: UIViewController{    //when it doesn't conform to protocol it
         //get eventPeople from server
     }
     
+    //Determine whether to sign up or check in based on name field
     func buttonTapped(sender: UIButton!) {
         if (nameTextfield.text == ""){
             print("Please enter your name")

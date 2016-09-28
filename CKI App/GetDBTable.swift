@@ -10,7 +10,7 @@ import Foundation
 import AWSDynamoDB
 
 class Item : AWSDynamoDBObjectModel, AWSDynamoDBModeling {
-    
+        //variables in a row of data
         var Name:String = ""
         var Date:String = ""
         var Location:String = ""
@@ -32,7 +32,7 @@ class Item : AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         class func rangeKeyAttribute() -> String {
             return "Date"
         }
-
+        //Use event, name, and date to create hash id
         override func isEqual(object: AnyObject?) -> Bool {
             return super.isEqual(object)
         }

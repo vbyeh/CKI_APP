@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 
+//Circle "about" page which also routes to club website
 class AboutHandler: UIViewController{    //when it doesn't conform to protocol it is because some functions need to be implemented
     @IBOutlet weak var aboutCKI: UITextView!
     override func viewDidLoad() {
