@@ -121,7 +121,7 @@ class CollectionViewController: UICollectionViewController {
             Event.passedEventTime = Time[indexPath.row]
             Event.passedEventEndTime = EndTime[indexPath.row]
             Event.passedEventDescription = Description[indexPath.row]
-            Event.passedEventParticipants = Participants[indexPath.row]
+            //Event.passedEventParticipants = Participants[indexPath.row]
             switch Type[indexPath.row]{
             case 1:
                 Event.passedEventColor = serviceColor

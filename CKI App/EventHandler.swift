@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import MapKit
+import AWSDynamoDB
 
 //Date formatting
 extension NSDate
@@ -31,13 +32,42 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
     var passedEventEndTime = String()
     var passedEventColor = Int()
     var passedEventDescription = String()
-    var passedEventParticipants:[String:[String:String]] = [:]
+    var eventParticipants = [[String:[String:String]]]()
+    var currCheckedInParticipants = String()
     var timeBool = Bool()
     var eventTimeString = String()
     var timeString = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
+        let queryExpression = AWSDynamoDBScanExpression()
+        dynamoDBObjectMapper.scan(Item.self, expression: queryExpression).continueWithBlock({ (task:AWSTask!) -> AnyObject! in
+            
+            if task.result != nil {
+                let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
+                
+                for item in paginatedOutput.items as! [Item] {
+                    //iterate through each item in event and append to designated array
+                    self.eventParticipants.append(item.Participants)
+                }
+                
+                if (self.currCheckedInParticipants != ""){
+                    // write to database
+                    print(self.currCheckedInParticipants)
+                }
+                
+                if ((task.error) != nil) {
+                    print("Error: \(task.error)")
+                }
+                return nil
+                
+            }
+            
+            return nil
+        })
+        
+
         self.view.backgroundColor = UIColor(netHex:passedEventColor)
         eventTimeString = passedEventTime + " - " + passedEventEndTime
         eventName.text = passedEventName
@@ -90,9 +120,12 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
             Participant.timeHasPassed = timeBool
             Participant.backgroundColor = passedEventColor
             
+            //Load all participants given the keys
             //iterate through user names for display when participant is pressed
-            for (name, _) in passedEventParticipants{
-                Participant.EventParticipants.append(name)
+            for participant in eventParticipants{
+                for (name, _) in participant{
+                    Participant.EventParticipants.append(name)
+                }
             }
         }
     }

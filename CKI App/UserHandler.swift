@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import AWSDynamoDB
 
 class UserHandler: UIViewController{    //when it doesn't conform to protocol it is because some functions need to be implemented
     @IBOutlet weak var submitButton: UIButton!
@@ -48,7 +49,10 @@ class UserHandler: UIViewController{    //when it doesn't conform to protocol it
     //Determine whether to sign up or check in based on name field
     func buttonTapped(sender: UIButton!) {
         if (nameTextfield.text == ""){
-            print("Please enter your name")
+            let alertController = UIAlertController(title: "Please enter your name", message:
+                "", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+            self.presentViewController(alertController, animated: true, completion: nil)
         }else{
             let signName = "Thank you for signing up " + nameTextfield.text! + "!"
             let checkName = "Thank you for checking in " + nameTextfield.text! + "!"
@@ -63,7 +67,16 @@ class UserHandler: UIViewController{    //when it doesn't conform to protocol it
                 "", preferredStyle: UIAlertControllerStyle.Alert)
                 alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
                 self.presentViewController(alertController, animated: true, completion: nil)
+                performSegueWithIdentifier("return_info", sender: self)
             }
+        }
+    }
+    
+    func unwindToEvent(unwindSegue: UIStoryboardSegue) {
+        if let eventViewControler = unwindSegue.sourceViewController as? EventHandler {
+            eventViewControler.currCheckedInParticipants = nameTextfield.text!
+            print(nameTextfield.text)
+            
         }
     }
     
