@@ -4,8 +4,6 @@ import UIKit
 class ParticipantHandler: UICollectionViewController{    //when it doesn't conform to protocol it is because some functions need to be implemented
     
     @IBOutlet weak var eventName: UILabel!
-    var timeHasPassed = Bool()
-    var Name = [String]()
     var selectedName = 0
     var selectedPerson = String()
     var backgroundColor = Int()
@@ -37,12 +35,6 @@ class ParticipantHandler: UICollectionViewController{    //when it doesn't confo
         name.text = EventParticipants[indexPath.row]
         
         let checkIn = participant.viewWithTag(2) as! UIButton
-        
-        if (timeHasPassed == true){  //check if time has passed, if it hasn't, you can't check in
-            checkIn.hidden = false
-        }else{
-            checkIn.hidden = true
-        }
         checkIn.addTarget(self, action: "buttonTapped:", forControlEvents: .TouchUpInside)
 
         return participant

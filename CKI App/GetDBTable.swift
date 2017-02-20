@@ -11,8 +11,9 @@ import AWSDynamoDB
 
 class Item : AWSDynamoDBObjectModel, AWSDynamoDBModeling {
         //variables in a row of data
+		var ID:String = ""
         var Name:String = ""
-        var Date:String = ""
+        var EventDate:String = ""
         var Location:String = ""
         var Time:String = ""
         var End_Time:String = ""
@@ -26,11 +27,11 @@ class Item : AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
         // if we define attribute it must be included when calling it in function testing...
         class func hashKeyAttribute() -> String {
-            return "Name"
+            return "ID"
         }
     
         class func rangeKeyAttribute() -> String {
-            return "Date"
+            return "EventDate"
         }
         //Use event, name, and date to create hash id
         override func isEqual(object: AnyObject?) -> Bool {

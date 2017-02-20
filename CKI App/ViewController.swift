@@ -28,6 +28,7 @@ class CollectionViewController: UICollectionViewController {
 
     @IBOutlet weak var settingsButton: UIButton!
     var monthName = [String]()
+	var ID = [String]()
     var Year = [String]()
     var Month = [String]()
     var Date = [String]()
@@ -114,6 +115,7 @@ class CollectionViewController: UICollectionViewController {
             let indexPaths : NSArray = self.collectionView!.indexPathsForSelectedItems()!
             let indexPath : NSIndexPath = indexPaths[0] as! NSIndexPath
             let Event:EventHandler = segue.destinationViewController as! EventHandler
+			Event.passedEventID = ID[indexPath.row]
             Event.passedEventMonth = Month[indexPath.row]
             Event.passedEventYear = Year[indexPath.row]
             Event.passedEventDate = Date[indexPath.row]
@@ -121,7 +123,7 @@ class CollectionViewController: UICollectionViewController {
             Event.passedEventTime = Time[indexPath.row]
             Event.passedEventEndTime = EndTime[indexPath.row]
             Event.passedEventDescription = Description[indexPath.row]
-            //Event.passedEventParticipants = Participants[indexPath.row]
+            Event.passedEventParticipants = Participants[indexPath.row]
             switch Type[indexPath.row]{
             case 1:
                 Event.passedEventColor = serviceColor

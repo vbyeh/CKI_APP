@@ -10,7 +10,7 @@ class AboutHandler: UIViewController{    //when it doesn't conform to protocol i
     }
     
     @IBAction func WebLink(sender: AnyObject) {
-        if let url = NSURL(string: "http://daviscki.wix.com/ucdaviscki") {
+        if let url = NSURL(string: "http://www.daviscki.com/") {
             UIApplication.sharedApplication().openURL(url)
         }
     }

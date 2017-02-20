@@ -3,19 +3,6 @@ import UIKit
 import MapKit
 import AWSDynamoDB
 
-//Date formatting
-extension NSDate
-{
-    convenience
-    init(dateString:String) {
-        let dateStringFormatter = NSDateFormatter()
-        dateStringFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
-        dateStringFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        let d = dateStringFormatter.dateFromString(dateString)!
-        self.init(timeInterval:0, sinceDate:d)
-    }
-}
-
 class EventHandler: UIViewController{    //when it doesn't conform to protocol it is because some functions need to be implemented
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var participantButton: UIButton!
@@ -24,6 +11,7 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
     @IBOutlet weak var eventName: UILabel!
     @IBOutlet weak var eventTime: UILabel!
     @IBOutlet weak var mapView: MKMapView!
+	var passedEventID = String()
     var passedEventYear = String()
     var passedEventMonth = String()
     var passedEventDate = String()
@@ -32,16 +20,17 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
     var passedEventEndTime = String()
     var passedEventColor = Int()
     var passedEventDescription = String()
-    var eventParticipants = [[String:[String:String]]]()
+    var passedEventParticipants = [String:[String:String]]()
     var currCheckedInParticipants = String()
-    var timeBool = Bool()
     var eventTimeString = String()
     var timeString = String()
+	var eventDateString = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
         let queryExpression = AWSDynamoDBScanExpression()
+		/*
         dynamoDBObjectMapper.scan(Item.self, expression: queryExpression).continueWithBlock({ (task:AWSTask!) -> AnyObject! in
             
             if task.result != nil {
@@ -49,7 +38,7 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
                 
                 for item in paginatedOutput.items as! [Item] {
                     //iterate through each item in event and append to designated array
-                    self.eventParticipants.append(item.Participants)
+                    self.passedEventParticipants.append(item.Participants)
                 }
                 
                 if (self.currCheckedInParticipants != ""){
@@ -67,21 +56,17 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
             return nil
         })
         
-
+		*/
         self.view.backgroundColor = UIColor(netHex:passedEventColor)
         eventTimeString = passedEventTime + " - " + passedEventEndTime
         eventName.text = passedEventName
         eventTime.text = eventTimeString
-        timeString = passedEventYear + "-" + passedEventMonth + "-" + passedEventDate + "T" + passedEventTime
-        
+		eventDateString = passedEventYear + "-" + passedEventMonth + "-" + passedEventDate
+        timeString = passedEventYear + "-" + passedEventMonth + "-" + passedEventDate + " " + passedEventTime
+		
         //Determines if current time is later than desginated time, if it is, user is checking in, otherwise, user is signning up
-         if (timeCompare(timeString) == true){
-         submitButton.setTitle("Sign Up", forState: .Normal)
-         timeBool = false
-         }else{
-         submitButton.setTitle("Check In", forState: .Normal)
-         timeBool = true
-         }
+         //if (timeCompare(timeString) == true){
+		submitButton.setTitle("Sign Up", forState: .Normal)
         submitButton.layer.cornerRadius = 5
         submitButton.layer.borderWidth = 1
         submitButton.layer.borderColor = UIColor.blackColor().CGColor
@@ -113,18 +98,17 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
         if (segue.identifier == "userSegue"){
             let User:UserHandler = segue.destinationViewController as! UserHandler
             User.userEventName = passedEventName
-            User.timePassed = timeBool
+			User.eventID = passedEventID
+			User.eventDate = eventDateString
             User.backgroundColor = passedEventColor
         }else if (segue.identifier == "participant"){
             let Participant:ParticipantHandler = segue.destinationViewController as! ParticipantHandler
-            Participant.timeHasPassed = timeBool
             Participant.backgroundColor = passedEventColor
             
             //Load all participants given the keys
             //iterate through user names for display when participant is pressed
-            for participant in eventParticipants{
-                for (name, _) in participant{
-                    Participant.EventParticipants.append(name)
+            for (name,_) in passedEventParticipants{
+				Participant.EventParticipants.append(name)
                 }
             }
         }
@@ -132,12 +116,14 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
     
     //Comparison function to determine if current time is earlier or later than event time
     func timeCompare(stringDate: String)->Bool{
-        let currentDate: NSDate = NSDate()
-        let eventDate: NSDate = NSDate(dateString:stringDate)
-        if (currentDate == currentDate.earlierDate(eventDate)){
+		let todayDate = NSDate()
+		let styler = NSDateFormatter()
+		styler.dateFormat = "yyyy-MM-dd HH:MM"
+		let todaysDate = styler.stringFromDate(todayDate)
+
+        if (todaysDate < stringDate){
             return true
         }else{
             return false
         }
     }
-}
