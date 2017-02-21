@@ -20,43 +20,13 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
     var passedEventEndTime = String()
     var passedEventColor = Int()
     var passedEventDescription = String()
-    var passedEventParticipants = [String:[String:String]]()
-    var currCheckedInParticipants = String()
     var eventTimeString = String()
     var timeString = String()
 	var eventDateString = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let dynamoDBObjectMapper = AWSDynamoDBObjectMapper.defaultDynamoDBObjectMapper()
-        let queryExpression = AWSDynamoDBScanExpression()
-		/*
-        dynamoDBObjectMapper.scan(Item.self, expression: queryExpression).continueWithBlock({ (task:AWSTask!) -> AnyObject! in
-            
-            if task.result != nil {
-                let paginatedOutput = task.result as! AWSDynamoDBPaginatedOutput
-                
-                for item in paginatedOutput.items as! [Item] {
-                    //iterate through each item in event and append to designated array
-                    self.passedEventParticipants.append(item.Participants)
-                }
-                
-                if (self.currCheckedInParticipants != ""){
-                    // write to database
-                    print(self.currCheckedInParticipants)
-                }
-                
-                if ((task.error) != nil) {
-                    print("Error: \(task.error)")
-                }
-                return nil
-                
-            }
-            
-            return nil
-        })
-        
-		*/
+		
         self.view.backgroundColor = UIColor(netHex:passedEventColor)
         eventTimeString = passedEventTime + " - " + passedEventEndTime
         eventName.text = passedEventName
@@ -104,15 +74,11 @@ class EventHandler: UIViewController{    //when it doesn't conform to protocol i
         }else if (segue.identifier == "participant"){
             let Participant:ParticipantHandler = segue.destinationViewController as! ParticipantHandler
             Participant.backgroundColor = passedEventColor
-            
-            //Load all participants given the keys
-            //iterate through user names for display when participant is pressed
-            for (name,_) in passedEventParticipants{
-				Participant.EventParticipants.append(name)
-                }
-            }
-        }
-    }
+			Participant.currEventID = passedEventID
+			Participant.currEventDate = eventDateString
+			}
+		}
+	}
     
     //Comparison function to determine if current time is earlier or later than event time
     func timeCompare(stringDate: String)->Bool{

@@ -93,15 +93,6 @@ class UserHandler: UIViewController{    //when it doesn't conform to protocol it
             }
     }
 	
-	/*
-    func unwindToEvent(unwindSegue: UIStoryboardSegue) {
-        if let eventViewControler = unwindSegue.sourceViewController as? EventHandler {
-            eventViewControler.currCheckedInParticipants = nameTextfield.text!
-            print(nameTextfield.text)
-            
-        }
-    }
-    */
     func dismissToEvent(){
         //after clicking check in or sign up, user dismiss the alert and is returned to event page
     }

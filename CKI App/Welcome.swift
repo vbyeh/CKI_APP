@@ -46,7 +46,6 @@ class Welcome: UIViewController {
 					self.End_Time.append(item.End_Time)
 					self.Type.append(item.Type)
 					self.Description.append(item.Description)
-					self.Participants.append(item.Participants)
 				}
 				if ((task.error) != nil) {
 					print("Error: \(task.error)")
